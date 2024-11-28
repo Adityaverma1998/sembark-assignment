@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {CartContext} from "../../context";
 const Header = () => {
+    const cartContext = useContext(CartContext);
+    const {cart} = cartContext;
     return (
         <>
             <header className="header">
@@ -17,20 +20,22 @@ const Header = () => {
                             <Link to="/cart" className="nav-link">
                                 <div className="relative inline-block">
                                     <ShoppingCartIcon fontSize="medium"/>
-                                    {/*<p className="text-sm absolute top-0 right-0 bg-red-500 text-white rounded-full px-1">*/}
-                                    {/*    0*/}
-                                    {/*</p>*/}
+                                    <p
+                                        className={`text-sm absolute -top-2 -right-2 bg-red-500 text-white rounded-full px-1 ${cart.length === 0 ? "hidden" : ""}`}
+                                    >
+                                        {cart.length}
+                                    </p>
                                 </div>
                             </Link>
                         </li>
 
 
-                </ul>
-            </nav>
-        </header>
-</>
-)
-    ;
+                    </ul>
+                </nav>
+            </header>
+        </>
+    )
+        ;
 };
 
 export default Header;
