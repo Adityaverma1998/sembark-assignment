@@ -5,9 +5,11 @@ import HomePage from './pages/home';
 import ProductDetails from './pages/product-details';
 import CartPage from './pages/cart';
 import PageLayout from "./components/page-layout";
+import {CartContextProvider} from "./context";
 
 function App() {
     return (
+        <CartContextProvider>
         <Router>
             <Routes>
                 <Route path="/" element={<HomePage />} />
@@ -17,6 +19,7 @@ function App() {
                 <Route path="/cart" element={<CartPage />} />
             </Routes>
         </Router>
+        </CartContextProvider>
     );
 }
 

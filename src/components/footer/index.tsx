@@ -2,7 +2,7 @@ const Footer =()=>{
     return(
 
             <footer className="footer">
-                <p>&copy; {new Date().getFullYear()} Payment Process Footer</p>
+                <p>&copy; {new Date().getFullYear()} Sembark  Footer</p>
             </footer>
 
     )
