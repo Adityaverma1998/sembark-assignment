@@ -53,10 +53,10 @@ const CartPage = () => {
 
     return (
         <PageLayout>
-            <div className="font-sans mx-auto bg-white py-4 flex flex-col md:flex-row w-full">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+            <div className="font-sans mx-auto bg-white py-4 flex flex-col md:flex-row w-full" data-testid="cart-container">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-[80%]" >
                     <div className="md:col-span-2 bg-gray-100 p-4 rounded-md">
-                        <h2 className="text-2xl font-bold text-gray-800">Cart</h2>
+                        <h2 className="text-2xl font-bold text-gray-800"    data-testid='cart-title'>Cart</h2>
                         <hr className="border-gray-300 mt-4 mb-8" />
 
                         <div className="space-y-4">
@@ -99,16 +99,16 @@ const CartPage = () => {
 
                         <ul className="text-gray-800 mt-8 space-y-4">
                             <li className="flex flex-wrap gap-4 text-base">
-                                Discount <span className="ml-auto font-bold">${discount.toFixed(2)}</span>
+                                Discount <span className="ml-auto font-bold" >${discount.toFixed(2)}</span>
                             </li>
                             <li className="flex flex-wrap gap-4 text-base">
-                                Shipping <span className="ml-auto font-bold">${shipping.toFixed(2)}</span>
+                                Shipping <span className="ml-auto font-bold"  data-testid="cart-ship">${shipping.toFixed(2)}</span>
                             </li>
                             <li className="flex flex-wrap gap-4 text-base">
                                 Tax <span className="ml-auto font-bold">${tax.toFixed(2)}</span>
                             </li>
                             <li className="flex flex-wrap gap-4 text-base font-bold">
-                                Total <span className="ml-auto">${total.toFixed(2)}</span>
+                                Total <span className="ml-auto"  data-testid="cart-total-amount">${total.toFixed(2)}</span>
                             </li>
                         </ul>
 

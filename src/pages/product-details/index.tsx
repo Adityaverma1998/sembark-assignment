@@ -76,21 +76,21 @@ const ProductDetails = () => {
                 productDetails && (
                     <div className={'flex flex-wrap gap-10 pt-4'}>
                         <div className={'w-1/3'}>
-                            <img src={productDetails.image} alt={productDetails.title}/>
+                            <img src={productDetails.image} alt={productDetails.title} data-testid="product-image"/>
                         </div>
                         <div className={'w-1/3 flex flex-col items-start justify-center gap-3 '}>
-                            <p className={'text-sm font-bold'}><span className={'text-xl font-medium'}>Category</span> : {productDetails.category}</p>
-                            <p className={'text-sm font-bold'}><span className={'text-xl font-medium'}>Name</span> : {productDetails.title}
+                            <p className={'text-sm font-bold'} data-testid="product-category"><span className={'text-xl font-medium'}>Category</span> : {productDetails.category}</p>
+                            <p className={'text-sm font-bold'} data-testid="product-name"><span className={'text-xl font-medium'}>Name</span> : {productDetails.title}
                             </p>
-                            <p className={'text-sm font-bold'}><span className={'text-xl font-medium'}>Price</span> : ${productDetails.price}
+                            <p className={'text-sm font-bold'} data-testid="product-price"><span className={'text-xl font-medium'}>Price</span> : ${productDetails.price}
                             </p>
-                            <p className={'text-sm font-bold'}><span className={'text-xl font-medium'}>Description</span> : {productDetails.description}
+                            <p className={'text-sm font-bold'} data-testid="product-description"><span className={'text-xl font-medium'}>Description</span> : {productDetails.description}
                             </p>
                             <button
                                 onClick={(e) => {
                                     addCart();}}
                                 className="mt-4 w-full py-2 rounded-xl bg-amber-400 text-black flex justify-center items-center hover:bg-amber-500 transition"
-                                data-testid={`view-details-button-${id}`}
+                               data-testid="add-to-cart-button"
                             >
                                 Add To Cart
                             </button>
