@@ -65,6 +65,26 @@
   color: #0056b3;
 }
 
+.breadcrumb {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.breadcrumb-item {
+  margin-right: 8px;
+}
+
+.breadcrumb-item a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.breadcrumb-item.active {
+  font-weight: bold;
+  color: #6c757d;
+}
 
 @keyframes App-logo-spin {
   from {

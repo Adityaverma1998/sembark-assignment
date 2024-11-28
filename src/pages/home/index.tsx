@@ -28,9 +28,9 @@ const HomePage =()=>{
     return(
         <PageLayout>
 
-            <div className={'flex items-center justify-center py-4'}>
-                <h2 className={'text-2xl'}  data-testid={`home-page-tile`}>Products</h2>
-            </div>
+
+                <h2 className={'py-4 flex justify-center items-center text-2xl font-extrabold'}  data-testid={`home-page-tile`}>Products</h2>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {loading ? (
                     <div className={'flex flex-wrap gap-12 justify-between'}>

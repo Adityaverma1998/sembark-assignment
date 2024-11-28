@@ -8,7 +8,7 @@ const PageLayout = ({children}) => {
         <div className="page-layout">
             <Header />
 
-            <main className="content-area w-full">
+            <main className="content-area w-full px-8">
                 {children}
             </main>
 
