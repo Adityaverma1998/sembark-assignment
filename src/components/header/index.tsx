@@ -7,7 +7,7 @@ const Header = () => {
     const {cart} = cartContext;
     return (
         <>
-            <header className="header">
+            <header className="header flex justify-between items-center py-4  bg-gray-100 shadow-md px-2 md:px-8 ">
                 <div className="logo">
                     <h1>Sembark</h1>
                 </div>
