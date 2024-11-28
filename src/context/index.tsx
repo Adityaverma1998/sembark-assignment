@@ -1,13 +1,16 @@
 import React, { useState, ReactNode } from 'react';
-import {CartContextType, CartItem} from '../interface';
+import { CartContextType, CartItem } from '../interface';
 
-
-const defaultValue:CartContextType ={
+// Default value for the context
+const defaultValue: CartContextType = {
     cart: [],
     addToCart: (item: CartItem) => {},
     removeFromCart: (id: string) => {},
-}
+};
+
+// Create the CartContext
 const CartContext = React.createContext<CartContextType>(defaultValue);
+
 const CartContextProvider = ({ children }: { children: ReactNode }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
 
@@ -26,4 +29,4 @@ const CartContextProvider = ({ children }: { children: ReactNode }) => {
 );
 };
 
-export { CartContextProvider };
+export { CartContext, CartContextProvider };
