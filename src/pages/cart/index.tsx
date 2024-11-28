@@ -1,9 +1,9 @@
 import PageLayout from "../../components/page-layout";
-
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 const CartPage =()=>{
     return(
         <PageLayout>
-            <h1>CartPage details page</h1>
         </PageLayout>
     )
 }

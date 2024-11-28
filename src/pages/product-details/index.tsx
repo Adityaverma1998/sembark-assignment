@@ -10,7 +10,7 @@ import {toast} from "react-toastify"; // To fetch the dynamic product id from th
 
 const ProductDetails = () => {
     const cartContext = useContext(CartContext);
-    const {addToCart} = cartContext;
+    const {addToCart,cart} = cartContext;
 
 
     const { id } = useParams();
@@ -45,13 +45,20 @@ const ProductDetails = () => {
 
     const addCart = () => {
         if (productDetails) {
-            const item: CartItem = {
-                id: String(productDetails.id),
-                image: productDetails.image,
-                name: productDetails.title,
-                price: productDetails.price,
-            };
-            addToCart(item);
+            const filterCartItem = cart.filter((item,index)=>item.id===String(productDetails.id))
+            if(filterCartItem){
+                addToCart({...filterCartItem[0],quantity: filterCartItem[0].quantity + 1})
+            }else{
+                const item: CartItem = {
+                    id: String(productDetails.id),
+                    image: productDetails.image,
+                    name: productDetails.title,
+                    price: productDetails.price,
+                    quantity:1
+                };
+                addToCart(item);
+            }
+
 
             // Show success toast
             toast.success(`${productDetails.title} has been added to your cart!`, );

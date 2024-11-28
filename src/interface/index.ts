@@ -5,12 +5,15 @@ export interface CartItem {
     image:string;
     name: string;
     price: number;
+    quantity:number,
 }
 
 export interface CartContextType {
     cart: CartItem[];
     addToCart: (item: CartItem) => void;
     removeFromCart: (id: string) => void;
+    cartItemsQuantityIncrement: (id: string) => void;
+    cartItemsQuantityDecrement: (id: string) => void;
 }
 export interface Product {
     id: number;
