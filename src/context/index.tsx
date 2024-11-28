@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from 'react';
+import React, {useState, ReactNode, useEffect} from 'react';
 import { CartContextType, CartItem } from '../interface';
 
 // Default value for the context
@@ -12,7 +12,14 @@ const defaultValue: CartContextType = {
 const CartContext = React.createContext<CartContextType>(defaultValue);
 
 const CartContextProvider = ({ children }: { children: ReactNode }) => {
-    const [cart, setCart] = useState<CartItem[]>([]);
+    const storedCart = localStorage.getItem('cart');
+    const initialCart = storedCart ? JSON.parse(storedCart) : [];
+    const [cart, setCart] = useState<CartItem[]>( initialCart);
+
+
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart]); // Only run when cart changes
 
     const addToCart = (item: CartItem) => {
         setCart((prevCart) => [...prevCart, item]);
