@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, {AxiosRequestConfig} from "axios";
 
 export const useApiCall = () => {
     const [data, setData] = useState(null);
