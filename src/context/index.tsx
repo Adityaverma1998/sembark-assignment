@@ -24,20 +24,43 @@ const CartContextProvider = ({ children }: { children: ReactNode }) => {
     }, [cart]);
 
     const addToCart = (item: CartItem) => {
-        setCart((prevCart) => [...prevCart, item]);
+        setCart((prevCart) => {
+            const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
+
+            if (existingItem) {
+                return prevCart.map((cartItem) =>
+                    cartItem.id === item.id
+                        ? { ...cartItem, quantity: cartItem.quantity + 1 }
+                        : cartItem
+                );
+            } else {
+                return [...prevCart, { ...item, quantity: 1 }];
+            }
+        });
     };
-    const cartItemsQuantityIncrement =(id:string)=>{
-        const filterCartItem = cart.filter((item,index)=>item.id===String(id))
-        if(filterCartItem){
-            addToCart({...filterCartItem[0],quantity: filterCartItem[0].quantity + 1})
-        }
-    }
-    const cartItemsQuantityDecrement =(id:string)=>{
-        const filterCartItem = cart.filter((item,index)=>item.id===String(id))
-        if(filterCartItem){
-            addToCart({...filterCartItem[0],quantity: filterCartItem[0].quantity - 1})
-        }
-    }
+
+    const cartItemsQuantityIncrement = (id: string) => {
+        const updatedCart = cart.map((item) => {
+            if (item.id === id) {
+                return { ...item, quantity: item.quantity + 1 };
+            }
+            return item;
+        });
+        setCart(updatedCart);
+    };
+
+    const cartItemsQuantityDecrement = (id: string) => {
+        const updatedCart = cart.map((item) => {
+            if (item.id === id && item.quantity > 1) {
+                return { ...item, quantity: item.quantity - 1 };
+            }
+            return item;
+        });
+        setCart(updatedCart);
+    };
+
+    console.log("check cart in context here",cart);
+
 
     const removeFromCart = (id: string) => {
         setCart((prevCart) => prevCart.filter((item) => item.id !== id));

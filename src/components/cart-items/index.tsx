@@ -6,7 +6,7 @@ import {CartContext} from "../../context";
 import {toast} from "react-toastify";
 
 const CartItems = (props:CartItem)=>{
-    const {image,name,price,id} = props;
+    const {image,name,price,id,quantity} = props;
     const cartContext = useContext(CartContext);
     const {cartItemsQuantityIncrement,cartItemsQuantityDecrement,removeFromCart} = cartContext;
 
@@ -42,7 +42,7 @@ const CartItems = (props:CartItem)=>{
                                 <button type="button"
                                         className="flex items-center px-2.5 py-1.5 border border-gray-300 text-gray-800 text-xs outline-none bg-transparent rounded-md">
                                     <RemoveIcon className="w-2.5 fill-current" onClick={cartDecrement}/>
-                                    <span className="mx-2.5">1</span>
+                                    <span className="mx-2.5">{quantity}</span>
                                     <AddIcon className="w-2.5 fill-current" onClick={cartIncrement}/>
                                 </button>
                             </div>

@@ -45,26 +45,21 @@ const ProductDetails = () => {
 
     const addCart = () => {
         if (productDetails) {
-            const filterCartItem = cart.filter((item,index)=>item.id===String(productDetails.id))
-            if(filterCartItem){
-                addToCart({...filterCartItem[0],quantity: filterCartItem[0].quantity + 1})
-            }else{
+
                 const item: CartItem = {
                     id: String(productDetails.id),
                     image: productDetails.image,
                     name: productDetails.title,
                     price: productDetails.price,
-                    quantity:1
+                    quantity: 1
                 };
                 addToCart(item);
-            }
 
 
             // Show success toast
-            toast.success(`${productDetails.title} has been added to your cart!`, );
+            toast.success(`${productDetails.title} has been added to your cart!`);
         }
     };
-
     return (
         <PageLayout>
             <h2 className={'py-4 flex justify-center items-center text-2xl font-extrabold'}>Product details page</h2>
