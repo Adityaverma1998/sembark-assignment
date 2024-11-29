@@ -7,7 +7,7 @@ const Header = () => {
     const {cart} = cartContext;
     return (
         <>
-            <header className="header flex justify-between items-center py-4  bg-gray-100 shadow-md px-2 md:px-8 ">
+            <header className="header flex justify-between items-center py-4  bg-gray-100 shadow-md px-2 md:px-4 lg:px-8 ">
                 <div className="logo">
                     <h1>Sembark</h1>
                 </div>
@@ -16,7 +16,7 @@ const Header = () => {
                         <li className="nav-item">
                             <Link to="/" className="nav-link">Home</Link>
                         </li>
-                        <li className="nav-item">
+                        <li className="nav-item pr-1 md:pr-0">
                             <Link to="/cart" className="nav-link">
                                 <div className="relative inline-block">
                                     <ShoppingCartIcon fontSize="medium"/>
