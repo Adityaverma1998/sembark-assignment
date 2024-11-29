@@ -14,7 +14,12 @@ export interface CartContextType {
     removeFromCart: (id: string) => void;
     cartItemsQuantityIncrement: (id: string) => void;
     cartItemsQuantityDecrement: (id: string) => void;
+    filter: string;
+    setFilter: (filter: string) => void;
+    sortOrder: string;
+    setSortOrder: (order: string) => void;
 }
+
 export interface Product {
     id: number;
     title: string;

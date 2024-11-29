@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useApiCall } from "../../custom-hooks/api-call-hook";
+import {CartContext} from "../../context";
 
 interface Category {
     id: string;
@@ -15,9 +16,10 @@ interface CategoryFilterProps {
 
 const CategoryFilter = (props: CategoryFilterProps) => {
     const { url, setUrl } = props;
+    const { filter, setFilter } = useContext(CartContext);
+
     const [isExpanded, setIsExpanded] = useState(false);
     const [category, setCategory] = useState<Category[] | undefined>(undefined);
-    const [selectedCategory, setSelectedCategory] = useState<SelectedCategory>(null);
     const { data, loading, error, callApi } = useApiCall();
 
     const fetchCategories = () => {
@@ -25,8 +27,9 @@ const CategoryFilter = (props: CategoryFilterProps) => {
     };
 
     const fetchSelectedProducts = () => {
-        if (selectedCategory) {
-            setUrl(`https://fakestoreapi.com/products/category/${selectedCategory}`);
+        if (filter) {
+            setFilter(filter);
+            setUrl(`https://fakestoreapi.com/products/category/${filter}`);
         } else {
             setUrl("https://fakestoreapi.com/products");
         }
@@ -50,14 +53,14 @@ const CategoryFilter = (props: CategoryFilterProps) => {
 
     useEffect(() => {
         fetchSelectedProducts();
-    }, [selectedCategory]);
+    }, [filter]);
 
     const toggleExpand = () => {
         setIsExpanded((prev) => !prev);
     };
 
     const handleRadioButtonChange = (categoryId: string) => {
-        setSelectedCategory(categoryId);
+        setFilter(categoryId);
     };
 
     return (
@@ -105,7 +108,7 @@ const CategoryFilter = (props: CategoryFilterProps) => {
                                     <input
                                         type="radio"
                                         name="category"
-                                        checked={selectedCategory === categoryItem.id}
+                                        checked={filter === categoryItem.id}
                                         onChange={() => handleRadioButtonChange(categoryItem.id)}
                                         className="mr-2"
                                     />

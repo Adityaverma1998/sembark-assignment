@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { CartContext } from "../../context";
 
-const ProductSort = () => {
+interface SortFilterProps {
+    url: string;
+    setUrl: (newUrl: string) => void;
+}
+
+const ProductSort = (props: SortFilterProps) => {
+    const { url, setUrl } = props;
+    const { sortOrder, setSortOrder } = useContext(CartContext);
     const [isExpanded, setIsExpanded] = useState(false);
-    const [sortOrder, setSortOrder] = useState<string>("asc");
+
+    useEffect(() => {
+        const newUrl = `https://fakestoreapi.com/products?sort=${sortOrder}`;
+        setUrl(newUrl);
+        localStorage.setItem('sortOrder', sortOrder);
+    }, [sortOrder, setUrl]);
 
     const toggleExpand = () => {
         setIsExpanded((prev) => !prev);
     };
 
-    const handleSortOrderChange = (order:string) => {
+    const handleSortOrderChange = (order: string) => {
         setSortOrder(order);
     };
 

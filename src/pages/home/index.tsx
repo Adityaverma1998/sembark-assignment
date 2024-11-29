@@ -44,7 +44,7 @@ const HomePage = () => {
 
             <div className={'flex items-center justify-end px-4 gap-4'}>
                 <CategoryFilter setUrl={setProductUrl} url={productUrl} />
-                <ProductSort />
+                <ProductSort  setUrl={setProductUrl} url={productUrl}/>
             </div>
 
             <div className="grid place-items-center items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
