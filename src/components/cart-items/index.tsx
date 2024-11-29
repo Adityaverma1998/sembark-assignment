@@ -51,11 +51,11 @@ const CartItems = (props: CartItem) => {
                         >
                             Remove
                         </h6>
-                        <div className="flex gap-4 mt-4">
+                        <div className="flex  justify-center items-center gap-0 md:gap-2 mt-4">
                             <button
                                 type="button"
                                 onClick={cartDecrement}
-                                className="flex items-center px-2.5 py-1.5 border border-gray-300 text-gray-800 text-xs outline-none bg-transparent rounded-md"
+                                className="flex items-center px-1.5 py-0.5 md:px-2.5 md:py-1.5 border border-gray-300 text-gray-800 text-xs outline-none bg-transparent rounded-md"
                                 data-testid={`cart-item-decrement-${id}`}
                             >
                                 <RemoveIcon className="w-2.5 fill-current"/>
@@ -69,7 +69,7 @@ const CartItems = (props: CartItem) => {
                             <button
                                 type="button"
                                 onClick={cartIncrement}
-                                className="flex items-center px-2.5 py-1.5 border border-gray-300 text-gray-800 text-xs outline-none bg-transparent rounded-md"
+                                className="flex items-center px-1.5 py-0.5 md:px-2.5 md:py-1.5 border border-gray-300 text-gray-800 text-xs outline-none bg-transparent rounded-md"
                                 data-testid={`cart-item-increment-${id}`}
                             >
                                 <AddIcon className="w-2.5 fill-current"/>

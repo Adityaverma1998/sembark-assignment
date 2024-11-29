@@ -54,7 +54,7 @@ const CartPage = () => {
     return (
         <PageLayout>
             <div className="font-sans mx-auto bg-white py-4 flex flex-col md:flex-row w-full" data-testid="cart-container">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-[80%]" >
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4  w-full md:w-[80%]" >
                     <div className="md:col-span-2 bg-gray-100 p-4 rounded-md">
                         <h2 className="text-2xl font-bold text-gray-800"    data-testid='cart-title'>Cart</h2>
                         <hr className="border-gray-300 mt-4 mb-8" />
@@ -78,7 +78,6 @@ const CartPage = () => {
                             )}
                         </div>
                     </div>
-                    {/* Adjusting the width of the right section */}
                     <div className="bg-gray-100 rounded-md p-4 md:sticky top-0 md:w-full">
                         <div className="flex border border-blue-600 overflow-hidden rounded-md">
                             <input
