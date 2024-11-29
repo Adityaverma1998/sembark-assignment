@@ -75,7 +75,7 @@ const CategoryFilter = (props: CategoryFilterProps) => {
                         aria-haspopup="true"
                         onClick={toggleExpand}
                     >
-                        Sort
+                        Filter
                         <svg
                             className="-mr-1 ml-1 size-5 shrink-0 text-gray-400 group-hover:text-gray-500"
                             viewBox="0 0 20 20"
