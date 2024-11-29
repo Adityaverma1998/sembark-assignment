@@ -17,7 +17,8 @@ const Header = () => {
         <>
             <header className="header flex justify-between items-center py-4 bg-gray-100 shadow-md px-2 md:px-4 lg:px-8">
                 <div className="logo">
-                    <h1>Sembark</h1>
+                    <Link to="/" className="nav-link"><h1 className={'text-2xl font-extrabold'}>Sembark</h1></Link>
+
                 </div>
                 <nav className="nav">
                     <ul className="nav-list">
