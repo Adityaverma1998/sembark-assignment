@@ -11,8 +11,12 @@ export const useApiCall = () => {
         setError(null);
 
         try {
+            console.log('check congfig are here ',config);
             const response = await axios(config);
             setData(response.data);
+
+            console.log('check internal data arre here ',data)
+
         } catch (err: any) {
             setError(err.message || 'Something went wrong');
         } finally {
