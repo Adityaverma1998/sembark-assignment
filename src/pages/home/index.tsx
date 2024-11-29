@@ -16,6 +16,9 @@ const HomePage =()=>{
 
 
     };
+
+
+
     useEffect(() => {
         if(data){
            setProducts(data)
@@ -31,10 +34,10 @@ const HomePage =()=>{
 
                 <h2 className={'py-4 flex justify-center items-center text-2xl font-extrabold'}  data-testid={`home-page-tile`}>Products</h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid place-items-center items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {loading ? (
-                    <div className={'flex flex-wrap gap-12 justify-between'}>
-                        {Array.from({ length: 10 }).map((_, index) => (
+                        <div className={'flex flex-wrap gap-12 justify-between'}>
+                            {Array.from({ length: 10 }).map((_, index) => (
                             <CardShimmerLoader key={index} />
                         ))}
                     </div>

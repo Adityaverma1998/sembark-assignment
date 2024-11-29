@@ -10,7 +10,7 @@ const PageLayout = ({children}) => {
 
             <Header />
             <ToastProvider>
-                <main className="content-area w-full px-2 md:px-8">
+                <main className="content-area w-full px-2 md:px-4">
                     {children}
                 </main>
             </ToastProvider>

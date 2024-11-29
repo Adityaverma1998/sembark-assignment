@@ -19,7 +19,7 @@ const ProductCard = (props: ProductCardProps) => {
     return (
         <div
             onClick={handleCardClick}
-            className="overflow-hidden rounded-lg shadow-md bg-white w-[300px] cursor-pointer hover:shadow-lg transition flex flex-col"
+            className=" overflow-hidden rounded-lg shadow-md bg-white w-[300px] cursor-pointer hover:shadow-lg transition flex flex-col"
             data-testid={`product-card-${id}`}
         >
             <div className="relative w-full h-48 sm:h-64 md:h-72 lg:h-80">
