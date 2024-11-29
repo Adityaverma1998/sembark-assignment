@@ -4,19 +4,19 @@ import Footer from "../footer";
 import ToastProvider from "../toast-message";
 
 // @ts-ignore
-const PageLayout = ({children}) => {
+const PageLayout = ({ children }) => {
     return (
-        <div className="page-layout">
-
+        <div className="page-layout flex flex-col min-h-screen">
             <Header />
+
             <ToastProvider>
-                <main className="content-area w-full px-2 md:px-4 ">
+                <main className="flex-grow w-full px-2 md:px-4">
                     {children}
+                    <Outlet />
                 </main>
             </ToastProvider>
 
-
-            <Footer/>
+            <Footer />
         </div>
     );
 };
