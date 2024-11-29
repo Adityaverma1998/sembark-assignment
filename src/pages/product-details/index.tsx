@@ -74,11 +74,11 @@ const ProductDetails = () => {
                 <p>Error loading product details.</p>
             ) : (
                 productDetails && (
-                    <div className={'flex flex-wrap gap-10 pt-4'}>
-                        <div className={'w-1/3'}>
+                    <div className={' flex flex-col  md:flex-row  gap-10 pt-4'}>
+                        <div className={'w-full md:w-1/3 '}>
                             <img src={productDetails.image} alt={productDetails.title} data-testid="product-image"/>
                         </div>
-                        <div className={'w-1/3 flex flex-col items-start justify-center gap-3 '}>
+                        <div className={'w-full md:w-1/3 flex flex-col items-start justify-center gap-3 '}>
                             <p className={'text-sm font-bold'} data-testid="product-category"><span className={'text-xl font-medium'}>Category</span> : {productDetails.category}</p>
                             <p className={'text-sm font-bold'} data-testid="product-name"><span className={'text-xl font-medium'}>Name</span> : {productDetails.title}
                             </p>
