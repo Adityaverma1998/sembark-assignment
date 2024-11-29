@@ -36,11 +36,10 @@ const HomePage =()=>{
 
             <div className="grid place-items-center items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {loading ? (
-                        <div className={'flex flex-wrap gap-12 justify-between'}>
-                            {Array.from({ length: 10 }).map((_, index) => (
+                            Array.from({ length: 10 }).map((_, index) => (
                             <CardShimmerLoader key={index} />
-                        ))}
-                    </div>
+                        ))
+
                 ) :
 
 
