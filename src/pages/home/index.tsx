@@ -5,13 +5,14 @@ import {Product} from "../../interface";
 import ProductCard from "../../components/product-card";
 import CardShimmerLoader from "../../components/product-loader";
 import CategoryFilter, {Category} from "../../components/filter-sorting /filter";
+import ProductSort from "../../components/filter-sorting /sorting";
 
 const HomePage = () => {
     // const [productUrl, setProductUrl] = useState('https://fakestoreapi.com/products');
     const {data, loading, error, callApi} = useApiCall();
     const [products, setProducts] = useState<Product[] | null>(null);
     const [multipleCategory, setMultipleCategory] = React.useState<Category[]>([])
-
+    const [sort,setSort] = useState<string>("asc")
 
     const fetchProducts = async (productUrl: string) => {
         try {
@@ -24,7 +25,7 @@ const HomePage = () => {
 
     const callMultipleCategoryProduct = async (multipleCategory: Category[]) => {
         const multiCategoryPromiseData = multipleCategory.map((category) => {
-            return fetchProducts(`https://fakestoreapi.com/products/category/${category.name}`)
+            return fetchProducts(`https://fakestoreapi.com/products/category/${category.name}?sort=${sort}`)
 
         });
         const categoryProducts = await Promise.all(multiCategoryPromiseData);
@@ -48,9 +49,9 @@ const HomePage = () => {
 
 
         } else {
-            fetchProducts(`https://fakestoreapi.com/products`);
+            fetchProducts(`https://fakestoreapi.com/products?sort=${sort}`);
         }
-    }, [multipleCategory]);
+    }, [multipleCategory,sort]);
 
     useEffect(() => {
         if(data && multipleCategory.length ===0){
@@ -70,7 +71,7 @@ const HomePage = () => {
 
             <div className={'flex items-center justify-end px-4 gap-4'}>
                 <CategoryFilter multipleCategory={multipleCategory} setMultipleCategory={setMultipleCategory}/>
-                {/*<ProductSort  setUrl={setProductUrl} url={productUrl}/>*/}
+                <ProductSort  setSort={setSort} sort={sort}/>
             </div>
 
             <div

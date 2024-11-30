@@ -2,12 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { CartContext } from "../../context";
 
 interface SortFilterProps {
-    url: string;
-    setUrl: (newUrl: string) => void;
+    sort: string;
+    setSort: (newUrl: string) => void;
 }
 
 const ProductSort = (props: SortFilterProps) => {
-    const { url, setUrl } = props;
+    const { sort, setSort } = props;
     const { sortOrder, setSortOrder } = useContext(CartContext);
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -22,7 +22,7 @@ const ProductSort = (props: SortFilterProps) => {
     };
 
     const handleSortOrderChange = (order: string) => {
-        setSortOrder(order);
+        setSort(order);
     };
 
     return (
@@ -71,7 +71,7 @@ const ProductSort = (props: SortFilterProps) => {
                                         type="radio"
                                         name="sortOrder"
                                         value="asc"
-                                        checked={sortOrder === "asc"}
+                                        checked={sort === "asc"}
                                         onChange={() => handleSortOrderChange("asc")}
                                         className="mr-2"
                                     />
@@ -83,7 +83,7 @@ const ProductSort = (props: SortFilterProps) => {
                                         type="radio"
                                         name="sortOrder"
                                         value="desc"
-                                        checked={sortOrder === "desc"}
+                                        checked={sort === "desc"}
                                         onChange={() => handleSortOrderChange("desc")}
                                         className="mr-2"
                                     />
