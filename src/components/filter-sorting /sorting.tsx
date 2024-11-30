@@ -7,8 +7,8 @@ interface SortFilterProps {
 }
 
 const ProductSort = (props: SortFilterProps) => {
-    const { sort, setSort } = props;
-    const { sortOrder, setSortOrder } = useContext(CartContext);
+    const { sort, setSort, } = props;
+    const { isSortOpen, setIsSortOpen ,isFilterOpen,setIsFilterOpen} = useContext(CartContext);
     const [isExpanded, setIsExpanded] = useState(false);
 
     // useEffect(() => {
@@ -18,7 +18,11 @@ const ProductSort = (props: SortFilterProps) => {
     // }, [sortOrder, setUrl]);
 
     const toggleExpand = () => {
-        setIsExpanded((prev) => !prev);
+        console.log('check toggle handle ',isFilterOpen)
+        if(isFilterOpen){
+            setIsFilterOpen(false)
+        }
+        setIsSortOpen(!isSortOpen);
     };
 
     const handleSortOrderChange = (order: string) => {
@@ -33,7 +37,7 @@ const ProductSort = (props: SortFilterProps) => {
                         type="button"
                         className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900"
                         id="menu-button"
-                        aria-expanded={isExpanded ? "true" : "false"}
+                        aria-expanded={isSortOpen ? "true" : "false"}
                         aria-haspopup="true"
                         onClick={toggleExpand}
                     >
@@ -54,8 +58,7 @@ const ProductSort = (props: SortFilterProps) => {
                     </button>
                 </div>
 
-                {/* Conditional rendering of the dropdown menu based on isExpanded */}
-                {isExpanded && (
+                {isSortOpen && (
                     <div
                         className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black/5 focus:outline-none"
                         role="menu"

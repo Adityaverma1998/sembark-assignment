@@ -12,6 +12,12 @@ const defaultValue: CartContextType = {
     setFilter: (filter: string) => {},
     sortOrder: "asc",
     setSortOrder: (order: string) => {},
+    isSortOpen:false,
+    setIsSortOpen:(Boolean)=>{},
+    isFilterOpen:false,
+    setIsFilterOpen:(Boolean)=>{},
+
+
 };
 
 // Create the CartContext
@@ -27,6 +33,9 @@ const CartContextProvider = ({ children }: { children: ReactNode }) => {
     const storedSortOrder = localStorage.getItem('sortOrder');
     const [filter, setFilter] = useState<string>(storedFilter || "");
     const [sortOrder, setSortOrder] = useState<string>(storedSortOrder || "asc");
+
+    const [isSortOpen,setIsSortOpen] = useState<boolean>(false);
+    const [isFilterOpen,setIsFilterOpen] = useState<boolean>(false);
 
     useEffect(() => {
         // Save cart to localStorage
@@ -87,6 +96,8 @@ const CartContextProvider = ({ children }: { children: ReactNode }) => {
         setSortOrder(newSortOrder);
     };
 
+
+
     return (
         <CartContext.Provider
             value={{
@@ -99,6 +110,10 @@ const CartContextProvider = ({ children }: { children: ReactNode }) => {
                 setFilter: updateFilter,
                 sortOrder,
                 setSortOrder: updateSortOrder,
+                isSortOpen,
+                setIsSortOpen,
+                isFilterOpen,
+                setIsFilterOpen,
             }}
         >
             {children}

@@ -16,7 +16,7 @@ interface CategoryFilterProps {
 
 const CategoryFilter = (props: CategoryFilterProps) => {
     const { multipleCategory, setMultipleCategory } = props;
-    const { filter, setFilter } = useContext(CartContext);
+    const { isSortOpen, setIsSortOpen ,isFilterOpen,setIsFilterOpen} = useContext(CartContext);
 
     const [isExpanded, setIsExpanded] = useState(false);
     const [category, setCategory] = useState<Category[] | undefined>(undefined);
@@ -48,11 +48,11 @@ const CategoryFilter = (props: CategoryFilterProps) => {
 
 
     const toggleExpand = () => {
-        setIsExpanded((prev) => !prev);
-    };
-
-    const handleRadioButtonChange = (categoryId: string) => {
-        setFilter(categoryId);
+        console.log('check toggle handel ',isFilterOpen)
+        if(isSortOpen){
+            setIsSortOpen(false)
+        }
+        setIsFilterOpen(!isFilterOpen);
     };
 
     return (
@@ -63,7 +63,7 @@ const CategoryFilter = (props: CategoryFilterProps) => {
                         type="button"
                         className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900"
                         id="menu-button"
-                        aria-expanded={isExpanded ? "true" : "false"}
+                        aria-expanded={isFilterOpen ? "true" : "false"}
                         aria-haspopup="true"
                         onClick={toggleExpand}
                     >
@@ -84,7 +84,7 @@ const CategoryFilter = (props: CategoryFilterProps) => {
                     </button>
                 </div>
 
-                {isExpanded && category && (
+                {isFilterOpen && category && (
                     <div
                         className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black/5 focus:outline-none"
                         role="menu"

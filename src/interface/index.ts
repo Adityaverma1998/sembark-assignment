@@ -18,6 +18,11 @@ export interface CartContextType {
     setFilter: (filter: string) => void;
     sortOrder: string;
     setSortOrder: (order: string) => void;
+    isFilterOpen: boolean;
+    setIsFilterOpen: (isFilterOpen: boolean) => void;
+    isSortOpen: boolean;
+    setIsSortOpen: (isSortOpen: boolean) => void;
+
 }
 
 export interface Product {
