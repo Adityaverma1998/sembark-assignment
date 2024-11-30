@@ -14,8 +14,8 @@ export const useApiCall = () => {
             console.log('check congfig are here ',config);
             const response = await axios(config);
             setData(response.data);
+            return response.data;
 
-            console.log('check internal data arre here ',data)
 
         } catch (err: any) {
             setError(err.message || 'Something went wrong');
