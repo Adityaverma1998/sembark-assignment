@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import { useApiCall } from "../../custom-hooks/api-call-hook";
 import {CartContext} from "../../context";
 
-interface Category {
+export interface Category {
     id: string;
     name: string;
 }
@@ -10,30 +10,24 @@ interface Category {
 type SelectedCategory = string | null;
 
 interface CategoryFilterProps {
-    url: string;
-    setUrl: (newUrl: string) => void;
+    multipleCategory: Category[];
+    setMultipleCategory: (newUrl: Category[]) => void;
 }
 
 const CategoryFilter = (props: CategoryFilterProps) => {
-    const { url, setUrl } = props;
+    const { multipleCategory, setMultipleCategory } = props;
     const { filter, setFilter } = useContext(CartContext);
 
     const [isExpanded, setIsExpanded] = useState(false);
     const [category, setCategory] = useState<Category[] | undefined>(undefined);
     const { data, loading, error, callApi } = useApiCall();
 
+
     const fetchCategories = () => {
         callApi({ method: "GET", url: "https://fakestoreapi.com/products/categories" });
     };
 
-    const fetchSelectedProducts = () => {
-        if (filter) {
-            setFilter(filter);
-            setUrl(`https://fakestoreapi.com/products/category/${filter}`);
-        } else {
-            setUrl("https://fakestoreapi.com/products");
-        }
-    };
+
 
     useEffect(() => {
         fetchCategories();
@@ -51,9 +45,7 @@ const CategoryFilter = (props: CategoryFilterProps) => {
         }
     }, [data]);
 
-    useEffect(() => {
-        fetchSelectedProducts();
-    }, [filter]);
+
 
     const toggleExpand = () => {
         setIsExpanded((prev) => !prev);
@@ -106,10 +98,12 @@ const CategoryFilter = (props: CategoryFilterProps) => {
                                     className="block px-4 py-2 text-sm text-gray-900"
                                 >
                                     <input
-                                        type="radio"
-                                        name="category"
-                                        checked={filter === categoryItem.id}
-                                        onChange={() => handleRadioButtonChange(categoryItem.id)}
+                                        type="checkbox"
+                                        name={`${categoryItem}`}
+                                        checked={Boolean(multipleCategory.find((category)=>category ===categoryItem)) }
+                                        onChange={(event) =>{
+                                            !event.target.checked ? setMultipleCategory(multipleCategory.filter((item)=> item !==categoryItem)):setMultipleCategory([...multipleCategory,categoryItem])
+                                        }}
                                         className="mr-2"
                                     />
                                     {categoryItem.name}

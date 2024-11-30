@@ -11,11 +11,11 @@ const ProductSort = (props: SortFilterProps) => {
     const { sortOrder, setSortOrder } = useContext(CartContext);
     const [isExpanded, setIsExpanded] = useState(false);
 
-    useEffect(() => {
-        const newUrl = `https://fakestoreapi.com/products?sort=${sortOrder}`;
-        setUrl(newUrl);
-        localStorage.setItem('sortOrder', sortOrder);
-    }, [sortOrder, setUrl]);
+    // useEffect(() => {
+    //     const newUrl = `https://fakestoreapi.com/products?sort=${sortOrder}`;
+    //     setUrl(newUrl);
+    //     localStorage.setItem('sortOrder', sortOrder);
+    // }, [sortOrder, setUrl]);
 
     const toggleExpand = () => {
         setIsExpanded((prev) => !prev);

@@ -1,30 +1,45 @@
 import Header from "../../components/header";
 import PageLayout from "../../components/page-layout";
 import { useApiCall } from "../../custom-hooks/api-call-hook";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Product } from "../../interface";
 import ProductCard from "../../components/product-card";
 import CardShimmerLoader from "../../components/product-loader";
-import CategoryFilter from "../../components/filter-sorting /filter";
+import CategoryFilter, {Category} from "../../components/filter-sorting /filter";
 import ProductSort from "../../components/filter-sorting /sorting";
 
 const HomePage = () => {
-    const [productUrl, setProductUrl] = useState('https://fakestoreapi.com/products');
+    // const [productUrl, setProductUrl] = useState('https://fakestoreapi.com/products');
     const { data, loading, error, callApi } = useApiCall();
     const [products, setProducts] = useState<Product[] | null>(null);
+    const [multipleCategory,setMultipleCategory] = React.useState<Category[] >([])
 
     // Fetch data when productUrl changes
     useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                await callApi({ method: 'GET', url: productUrl });
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            }
-        };
 
-        fetchUsers();
-    }, [productUrl]);
+
+
+    }, []);
+
+    const fetchProducts = async (productUrl:string) => {
+        try {
+            await callApi({ method: 'GET', url: productUrl });
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
+
+    useEffect(() => {
+        if(multipleCategory.length>0){
+            for(let i=0;i<multipleCategory.length;i++){
+                fetchProducts(`https://fakestoreapi.com/products/category/${multipleCategory[i].name}`)
+
+
+            }
+        }else{
+            fetchProducts(`https://fakestoreapi.com/products`);
+        }
+    }, [multipleCategory]);
 
     useEffect(() => {
 
@@ -43,8 +58,8 @@ const HomePage = () => {
             </h2>
 
             <div className={'flex items-center justify-end px-4 gap-4'}>
-                <CategoryFilter setUrl={setProductUrl} url={productUrl} />
-                <ProductSort  setUrl={setProductUrl} url={productUrl}/>
+                <CategoryFilter  multipleCategory={multipleCategory} setMultipleCategory={setMultipleCategory} />
+                {/*<ProductSort  setUrl={setProductUrl} url={productUrl}/>*/}
             </div>
 
             <div className="grid place-items-center items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
