@@ -12,11 +12,11 @@ const HomePage = () => {
     const {data, loading, error, callApi} = useApiCall();
     const [products, setProducts] = useState<Product[] | null>(null);
     const [multipleCategory, setMultipleCategory] = React.useState<Category[]>([])
-    const [sort,setSort] = useState<string>("asc")
+    const [sort, setSort] = useState<string>("asc")
 
     const fetchProducts = async (productUrl: string) => {
         try {
-            const response = await callApi({ method: "GET", url: productUrl });
+            const response = await callApi({method: "GET", url: productUrl});
             return response;
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -41,25 +41,23 @@ const HomePage = () => {
     }
 
     useEffect(() => {
-        if (multipleCategory.length > 0) {
-            (async () => {
+        const fetchData = async () => {
+            if (multipleCategory.length > 0) {
                 await callMultipleCategoryProduct(multipleCategory);
+            } else {
+                await fetchProducts(`https://fakestoreapi.com/products?sort=${sort}`);
+            }
+        };
 
-            })()
+        fetchData();
+    }, [multipleCategory, sort]);
 
-
-        } else {
-            fetchProducts(`https://fakestoreapi.com/products?sort=${sort}`);
-        }
-    }, [multipleCategory,sort]);
 
     useEffect(() => {
-        if(data && multipleCategory.length ===0){
+        if (data && multipleCategory.length === 0) {
             setProducts(data)
         }
     }, [data]);
-
-
 
 
     return (
@@ -71,7 +69,7 @@ const HomePage = () => {
 
             <div className={'flex items-center justify-end px-4 gap-4'}>
                 <CategoryFilter multipleCategory={multipleCategory} setMultipleCategory={setMultipleCategory}/>
-                <ProductSort  setSort={setSort} sort={sort}/>
+                <ProductSort setSort={setSort} sort={sort}/>
             </div>
 
             <div
