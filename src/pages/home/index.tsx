@@ -1,101 +1,97 @@
 import PageLayout from "../../components/page-layout";
-import {useApiCall} from "../../custom-hooks/api-call-hook";
-import React, {useEffect, useState} from "react";
-import {Product} from "../../interface";
+import { useApiCall } from "../../custom-hooks/api-call-hook";
+import React, { useEffect, useState } from "react";
+import { Product } from "../../interface";
 import ProductCard from "../../components/product-card";
 import CardShimmerLoader from "../../components/product-loader";
-import CategoryFilter, {Category} from "../../components/filter-sorting /filter";
-import ProductSort from "../../components/filter-sorting /sorting";
+import CategoryFilter, { Category } from "../../components/filter-sorting/filter";
+import ProductSort from "../../components/filter-sorting/sorting";
 
 const HomePage = () => {
-    // const [productUrl, setProductUrl] = useState('https://fakestoreapi.com/products');
-    const {data, loading, error, callApi} = useApiCall();
-    const [products, setProducts] = useState<Product[] | null>(null);
-    const [multipleCategory, setMultipleCategory] = React.useState<Category[]>([])
-    const [sort, setSort] = useState<string>("asc")
+  const { callApi } = useApiCall();
+  const [products, setProducts] = useState<Product[] | null>(null);
+  const [multipleCategory, setMultipleCategory] = useState<Category[]>([]);
+  const [sort, setSort] = useState<string>("asc");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-    const fetchProducts = async (productUrl: string) => {
-        try {
-            const response = await callApi({method: "GET", url: productUrl});
-            return response;
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
-    };
-
-    const callMultipleCategoryProduct = async (multipleCategory: Category[]) => {
-        const multiCategoryPromiseData = multipleCategory.map((category) => {
-            return fetchProducts(`https://fakestoreapi.com/products/category/${category.name}?sort=${sort}`)
-
-        });
-        const categoryProducts = await Promise.all(multiCategoryPromiseData);
-        console.log(categoryProducts);
-
-        const combinedProducts = categoryProducts
-            .filter((products) => products !== null)
-            .flat() as Product[];
-
-        setProducts(combinedProducts)
-
-
+  const fetchProducts = async (url: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await callApi({ method: "GET", url });
+      return response;
+    } catch (err: any) {
+      setError(err.message || "Failed to fetch products.");
+      return null;
+    } finally {
+      setLoading(false);
     }
+  };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (multipleCategory.length > 0) {
-                await callMultipleCategoryProduct(multipleCategory);
-            } else {
-                await fetchProducts(`https://fakestoreapi.com/products?sort=${sort}`);
-            }
-        };
+  const updateProducts = async () => {
+    if (multipleCategory.length > 0) {
+      // Fetch products for multiple categories
+      const categoryPromises = multipleCategory.map((category) =>
+        fetchProducts(`https://fakestoreapi.com/products/category/${category.name}?sort=${sort}`)
+      );
+      const categoryResults = await Promise.all(categoryPromises);
 
-        fetchData();
-    }, [multipleCategory, sort]);
+      const combinedProducts = categoryResults
+        .filter((res) => res !== null)
+        .flat() as Product[];
 
+      setProducts(combinedProducts);
+    } else {
+      // Fetch all products
+      const allProducts = await fetchProducts(`https://fakestoreapi.com/products?sort=${sort}`);
+      setProducts(allProducts);
+    }
+  };
 
-    useEffect(() => {
-        if (data && multipleCategory.length === 0) {
-            setProducts(data)
-        }
-    }, [data]);
+  
+  useEffect(() => {
+    updateProducts();
+  }, [multipleCategory, sort]);
 
+  return (
+    <PageLayout>
+      <h2
+        className="py-4 flex justify-center items-center text-2xl font-extrabold"
+        data-testid={`home-page-tile`}
+      >
+        Products
+      </h2>
 
-    return (
-        <PageLayout>
-            <h2 className={'py-4 flex justify-center items-center text-2xl font-extrabold'}
-                data-testid={`home-page-tile`}>
-                Products
-            </h2>
+      <div className="flex items-center justify-end px-4 gap-4">
+        <CategoryFilter
+          multipleCategory={multipleCategory}
+          setMultipleCategory={setMultipleCategory}
+        />
+        <ProductSort setSort={setSort} sort={sort} />
+      </div>
 
-            <div className={'flex items-center justify-end px-4 gap-4'}>
-                <CategoryFilter multipleCategory={multipleCategory} setMultipleCategory={setMultipleCategory}/>
-                <ProductSort setSort={setSort} sort={sort}/>
-            </div>
+      <div className="grid place-items-center items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {loading ? (
+          Array.from({ length: 10 }).map((_, index) => <CardShimmerLoader key={index} />)
+        ) : products && products.length > 0 ? (
+          products.map((product: Product, index: number) => (
+            <ProductCard
+              key={index}
+              id={product.id}
+              imageURL={product.image}
+              name={product.title}
+              price={product.price}
+            />
+          ))
+        ) : (
+          <p>No products available</p>
+        )}
+      </div>
 
-            <div
-                className="grid place-items-center items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {loading ? (
-                    Array.from({length: 10}).map((_, index) => (
-                        <CardShimmerLoader key={index}/>
-                    ))
-                ) : (
-                    products && products.length > 0 ? (
-                        products.map((product: Product, index: number) => (
-                            <ProductCard
-                                key={index}
-                                id={product.id}
-                                imageURL={product.image}
-                                name={product.title}
-                                price={product.price}
-                            />
-                        ))
-                    ) : (
-                        <p>No products available</p>
-                    )
-                )}
-            </div>
-        </PageLayout>
-    );
-}
+      {error && <p className="text-red-500 text-center">{error}</p>}
+    </PageLayout>
+  );
+};
 
 export default HomePage;
