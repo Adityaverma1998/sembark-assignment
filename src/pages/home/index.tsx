@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Product } from "../../interface";
 import ProductCard from "../../components/product-card";
 import CardShimmerLoader from "../../components/product-loader";
-import CategoryFilter, { Category } from "../../components/filter-sorting/filter";
-import ProductSort from "../../components/filter-sorting/sorting";
+import CategoryFilter, { Category } from "../../components/filter-sorting /filter";
+import ProductSort from "../../components/filter-sorting /sorting";
 
 const HomePage = () => {
   const { callApi } = useApiCall();
