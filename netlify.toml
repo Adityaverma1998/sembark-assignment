@@ -1,0 +1,4 @@
+[[headers]]
+for = "/.well-known/*"  # Match all files in the .well-known directory
+[headers.values]
+  Cache-Control = "public, max-age=0, must-revalidate"  # Ensure the latest version is served
