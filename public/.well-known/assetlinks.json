@@ -4,7 +4,7 @@
       "delegate_permission/common.handle_all_urls"
     ],
     "target": {
-      "namespace": "e-commerce app",
+      "namespace": "android_app",
       "package_name": "com.example.ecoomerce_shop",
       "sha256_cert_fingerprints": [
         "35:DD:1C:2C:D3:53:25:9F:5F:B7:93:CF:D2:E2:B9:E0:09:7B:0C:3A:55:AE:A4:EF:F1:47:40:60:11:D7:9E:51"
